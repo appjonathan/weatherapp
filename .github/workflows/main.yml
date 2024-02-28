@@ -26,9 +26,6 @@ jobs:
     - name: Build
       run: npm run build
 
-    - name: Test
-      run: |
-
     - name: Run Snyk to check for vulnerabilities
       uses: snyk/actions/node@master
       env:
