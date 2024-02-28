@@ -32,3 +32,16 @@ jobs:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       with:
         args: --all-projects --severity-threshold=high
+
+    - name: Send failure notification
+      if: failure()
+      uses: dawidd6/action-send-mail@v3
+      with:
+        server_address: smtp.gmail.com
+        server_port: 465
+        username: ${{secrets.MAIL_USERNAME}}
+        password: ${{secrets.MAIL_PASSWORD}}
+        subject: CI/CD Pipeline failed
+        to: ${{secrets.MAIL}}
+        from: ${{secrets.MAIL_USERNAME}}
+        body: The pipeline has failed. Please check the GitHub Actions output.
