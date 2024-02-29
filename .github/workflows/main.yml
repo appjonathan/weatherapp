@@ -51,7 +51,7 @@ jobs:
           node-version: '16'
 
       - name: Change to directory with package.json
-        run: cd /home/jonathan_epp/DevSecOps-lectures/weatherapp
+        run: cd /weatherapp
 
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/node@master
