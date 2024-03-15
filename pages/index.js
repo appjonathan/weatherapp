@@ -39,7 +39,7 @@ export default function Home() {
       .then((response) => {
         setWeather(response.data);
         const weatherData = response.data;
-        const tempCelsius = (weatherData.main.temp - 273.15).toFixed(2);
+        const tempCelsius = Math.round(weatherData.main.temp - 273.15);
         setTempInCelsius(tempCelsius);
         setError(''); // Kein Fehler, also setzen wir den Fehlerzustand auf einen leeren String
       })

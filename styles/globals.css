@@ -12,6 +12,9 @@
   text-align: center;
   font-size: 4vw; 
   margin-bottom: 2vh;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .icon {
@@ -27,9 +30,10 @@ form {
 
 input, button {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   margin: auto;
+  margin-bottom: 7% ;
   padding: 1vh;
   border: 1px solid #000000;
   border-radius: 4px;
@@ -50,15 +54,16 @@ button {
 }
 
 .loading {
-  display: flex;
-  justify-content: center;
   align-items: center;
   margin: 1vh auto;
 }
 
 .weatherInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
   margin: auto;
-  margin-top: 5vh;
   text-align: center;
   font-size: 2vw;
 }
