@@ -19,22 +19,3 @@ function getWeatherIcon(weather) {
       return <WiShowers />;
   }
 }
-
-export function getWeatherIcon(weather) {
-  switch (weather) {
-    case 'Clear':
-      return <WiDaySunny />;
-    case 'Rain':
-      return <WiRain />;
-    case 'Snow':
-      return <WiSnow />;
-    case 'Clouds':
-      return <WiCloud />;
-    case 'Atmosphere':
-      return <WiFog />;
-    case 'Thunderstorm':
-      return <WiThunderstorm />;
-    case 'Drizzle':
-      return <WiShowers />;
-  }
-}
