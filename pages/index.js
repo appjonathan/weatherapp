@@ -1,6 +1,7 @@
 // importieren der erforderlichen module
 import Head from 'next/head';
 import axios from 'axios';
+import { useEffect } from 'react';
 import { useState } from 'react';
 import { BsSearch } from 'react-icons/bs';
 import { WiDaySunny, WiRain, WiSnow, WiCloud, WiFog, WiThunderstorm, WiShowers } from 'react-icons/wi';
@@ -35,12 +36,25 @@ export default function Home() {
 
   const currentWeatherCondition = weather.weather ? weather.weather[0].main : '';
 
+ 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      if (weather.timezone) {
+        const date = new Date(); // Aktuelle Datum und Uhrzeit
+        const localTime = new Date(date.getTime() + weather.timezone * 1000); // Lokale Uhrzeit der Stadt
+        setLocalTime(localTime.toLocaleTimeString()); // Setzen Sie den Zustand auf die lokale Uhrzeit der Stadt
+      }
+    }, 1000); // Aktualisiert jede Sekunde
+
+    // Aufräumen, wenn die Komponente unmountet
+    return () => clearInterval(timer);
+  }, [weather.timezone]); // Abhängigkeiten: Aktualisiert, wenn sich die Zeitzone ändert
+
 // abrufen der wetterdaten
   const fetchWeather = (e) => {
     e.preventDefault();
     setLoading(true);
     setButtonClicked(true);
-
 
     const MY_WEATHER_API_KEY = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
     const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${MY_WEATHER_API_KEY}`;
