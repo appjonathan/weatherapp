@@ -87,7 +87,7 @@ export default function Home() {
       </button>
     </form>
   </div>
-  {loading && <p>Loading...</p>}
+  {loading && <p className="loading">Loading...</p>}
   {weather.main && (
     <div className="weatherInfo">
       <h2>Weather in <span style={{ color: 'rgb(144, 86, 191)' }}>{weather.name}, {weather.sys.country}</span></h2>
