@@ -31,6 +31,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [tempInCelsius, setTempInCelsius] = useState('');
   const [buttonClicked, setButtonClicked] = useState(false);
+  const [localTime, setLocalTime] = useState('');
 
   const currentWeatherCondition = weather.weather ? weather.weather[0].main : '';
 
@@ -51,6 +52,10 @@ export default function Home() {
         const weatherData = response.data;
         const tempCelsius = (weatherData.main.temp - 273.15).toFixed(2);
         setTempInCelsius(tempCelsius);
+        const timezoneOffset = response.data.timezone; // Zeitzone der Stadt in Sekunden von UTC
+        const date = new Date(); // Aktuelle Datum und Uhrzeit
+        const localTime = new Date(date.getTime() + timezoneOffset * 1000); // Lokale Uhrzeit der Stadt
+        setLocalTime(localTime.toLocaleTimeString()); // Setzen Sie den Zustand auf die lokale Uhrzeit der Stadt
       })
       .catch((error) => {
         console.error(error);
@@ -94,10 +99,11 @@ export default function Home() {
   {loading && <p>Loading...</p>}
   {weather.main && (
     <div className="weatherInfo">
-      <h2>Weather in {weather.name}, {weather.sys.country}</h2>
-      <p>temperature: {tempInCelsius}°C</p>
-      <p>humidity: {weather.main.humidity}%</p>
-      <p>cloud formation: {weather.weather[0].description}</p>
+      <h2>Weather in <span style={{ color: 'rgb(144, 86, 191)' }}>{weather.name}, {weather.sys.country}</span></h2>
+      <p>temperature: <span style={{ color: 'rgb(144, 86, 191)' }}>{tempInCelsius}°C</span></p>
+      <p>humidity: <span style={{ color: 'rgb(144, 86, 191)' }}>{weather.main.humidity}%</span></p>
+      <p>cloud formation: <span style={{ color: 'rgb(144, 86, 191)' }}>{weather.weather[0].description}</span></p>
+      <p>local time: <span style={{ color: 'rgb(144, 86, 191)' }}>{localTime}</span></p>
     </div>
   )}
 </div>
