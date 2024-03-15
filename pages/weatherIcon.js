@@ -1,7 +1,7 @@
 import React from 'react';
 import { WiDaySunny, WiRain, WiSnow, WiCloud, WiFog, WiThunderstorm, WiShowers } from 'react-icons/wi';
 
-function getWeatherIcon(weather) {
+export function getWeatherIcon(weather) {
   switch (weather) {
     case 'Clear':
       return <WiDaySunny />;
@@ -19,3 +19,7 @@ function getWeatherIcon(weather) {
       return <WiShowers />;
   }
 }
+
+export default function WeatherIcon() {
+    return null;
+  }
