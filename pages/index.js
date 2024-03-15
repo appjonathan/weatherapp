@@ -12,6 +12,7 @@ export default function Home() {
   const [tempInCelsius, setTempInCelsius] = useState('');
   const [buttonClicked, setButtonClicked] = useState(false);
   const [localTime, setLocalTime] = useState('');
+  const [error, setError] = useState(null);
 
   const currentWeatherCondition = weather.weather ? weather.weather[0].main : '';
 
@@ -34,7 +35,6 @@ export default function Home() {
     e.preventDefault();
     setLoading(true);
     setButtonClicked(true);
-
     const MY_WEATHER_API_KEY = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
     const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${MY_WEATHER_API_KEY}`;
 
@@ -45,13 +45,11 @@ export default function Home() {
         const weatherData = response.data;
         const tempCelsius = (weatherData.main.temp - 273.15).toFixed(2);
         setTempInCelsius(tempCelsius);
-        const timezoneOffset = response.data.timezone; // Zeitzone der Stadt in Sekunden von UTC
-        const date = new Date(); // Aktuelle Datum und Uhrzeit
-        const localTime = new Date(date.getTime() + timezoneOffset * 1000); // Lokale Uhrzeit der Stadt
-        setLocalTime(localTime.toLocaleTimeString()); // Setzen Sie den Zustand auf die lokale Uhrzeit der Stadt
+        setError(''); // Kein Fehler, also setzen wir den Fehlerzustand auf einen leeren String
       })
       .catch((error) => {
-        console.error(error);
+        setError('Error! City not found!'); // Setzen Sie den Fehlerzustand auf die Fehlermeldung
+        alert('Error! City not found! Please enter a valid city name'); // Zeigt die Fehlermeldung in einem Popup-Fenster an
       })
       .finally(() => {
         setLoading(false);
