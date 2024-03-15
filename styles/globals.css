@@ -1,11 +1,11 @@
 .container {
-    color:#fff;
+    color:#000000;
     max-width: 400px;
     margin: 0 auto;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 8px;
-    background-image: url('./thunderstorm-3440450_640.jpg');
+    background-color: rgb(213, 198, 136);
   }
   
   .header {
@@ -13,14 +13,20 @@
     font-size: 24px;
     margin-bottom: 20px;
   }
+
+  .icon {
+    font-size: 150px;
+    margin: 0 auto;
+  }
   
   form {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
   }
   
   input {
+    background-color: rgba(255, 255, 255, 0.6);
     width: 70%;
     padding: 10px;
     border: 1px solid #ccc;
@@ -29,8 +35,8 @@
   }
   
   button {
-    background-color: #0070f3;
-    color: #fff;
+    background-color: rgba(197, 81, 81, 1);
+    color: #000000;
     border: none;
     border-radius: 4px;
     padding: 10px 20px;
@@ -42,4 +48,8 @@
     margin-top: 20px;
     text-align: center;
     font-size: 18px;
+  }
+
+  body {
+    font-family: 'Roboto', sans-serif;
   }
