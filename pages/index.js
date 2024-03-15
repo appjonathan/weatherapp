@@ -10,13 +10,10 @@ export default function Home() {
   const [weather, setWeather] = useState({});
   const [loading, setLoading] = useState(false);
   const [tempInCelsius, setTempInCelsius] = useState('');
-  const [buttonClicked, setButtonClicked] = useState(false);
   const [localTime, setLocalTime] = useState('');
   const [error, setError] = useState(null);
-
   const currentWeatherCondition = weather.weather ? weather.weather[0].main : '';
 
- 
   useEffect(() => {
     const timer = setInterval(() => {
       if (weather.timezone) {
@@ -34,7 +31,6 @@ export default function Home() {
   const fetchWeather = (e) => {
     e.preventDefault();
     setLoading(true);
-    setButtonClicked(true);
     const MY_WEATHER_API_KEY = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
     const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${MY_WEATHER_API_KEY}`;
 
@@ -49,7 +45,7 @@ export default function Home() {
       })
       .catch((error) => {
         setError('Error! City not found!'); // Setzen Sie den Fehlerzustand auf die Fehlermeldung
-        alert('Error! City not found! Please enter a valid city name'); // Zeigt die Fehlermeldung in einem Popup-Fenster an
+        alert('Error! City not found, please enter a valid city name.'); // Zeigt die Fehlermeldung in einem Popup-Fenster an
       })
       .finally(() => {
         setLoading(false);
@@ -66,13 +62,8 @@ export default function Home() {
     <link rel="icon" href="/icon.jpg" type="image/jpeg"/>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"></link>
   </Head>
-  {!buttonClicked && (
-  <div className="header">
-    <h1>WeatherScope</h1>
-  </div>
-  )}
-  <div className='header icon'>
-  {getWeatherIcon(currentWeatherCondition)}
+  <div className='header'>
+  {weather.main ? <span className="icon">{getWeatherIcon(currentWeatherCondition)}</span> : <h1>WeatherScope</h1>}
   </div>
   <div>
     <form onSubmit={fetchWeather}>
@@ -87,7 +78,7 @@ export default function Home() {
       </button>
     </form>
   </div>
-  {loading && <p className="loading">Loading...</p>}
+  {loading && <p className="loading">LOADING...</p>}
   {weather.main && (
     <div className="weatherInfo">
       <h2>Weather in <span style={{ color: 'rgb(144, 86, 191)' }}>{weather.name}, {weather.sys.country}</span></h2>
