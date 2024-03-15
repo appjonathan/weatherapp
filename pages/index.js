@@ -20,11 +20,11 @@ export default function Home() {
     const timer = setInterval(() => {
       if (weather.timezone) {
         const date = new Date(); // Aktuelle Datum und Uhrzeit
-        const localTime = new Date(date.getTime() + weather.timezone * 1000); // Lokale Uhrzeit der Stadt
+        const timezoneOffsetInSeconds = date.getTimezoneOffset() * 60; // Zeitzone der Stadt in Sekunden von UTC
+        const localTime = new Date(date.getTime() + (weather.timezone + timezoneOffsetInSeconds) * 1000); // Lokale Uhrzeit der Stadt
         setLocalTime(localTime.toLocaleTimeString()); // Setzen Sie den Zustand auf die lokale Uhrzeit der Stadt
       }
     }, 1000); // Aktualisiert jede Sekunde
-
     // Aufräumen, wenn die Komponente unmountet
     return () => clearInterval(timer);
   }, [weather.timezone]); // Abhängigkeiten: Aktualisiert, wenn sich die Zeitzone ändert
